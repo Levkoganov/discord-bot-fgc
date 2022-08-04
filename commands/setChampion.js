@@ -67,9 +67,9 @@ module.exports = {
     const selectedUser = interaction.options.getMember('champion')
 
     // Role IDs
-    const championRoleID = "1003647177479958609"
-    const ModeratorsRoleID = "1003628964788588585"
-    const hasModRole = interaction.member.roles.cache.some((role) => role.id === ModeratorsRoleID);
+    const championRoleName = "KOTH Champion"
+    const moderatorsRoleName = "Moderators"
+    const hasModRole = interaction.member.roles.cache.some((role) => role.name === moderatorsRoleName);
      
     // Check if user is mod or admin
     if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator) || hasModRole) {
@@ -80,11 +80,13 @@ module.exports = {
       // Check if there was a champion
       if (previousChampData.length > 0) {
         await manageRole(interaction, previousChampData[0].userId, selectedUser)
+
         const championChannel = await championsChannelData(interaction, guiildInfo.id);
 
         // Check if channel set.
         if (!championChannel) {
           return await interaction.reply({content: "champion is set.\nplease set a channel with '/set-channel-champion'.", ephemeral: true});
+
         } else {
           // set data for channel
           championChannelData = championChannelInfo[guiildInfo.id] = championChannel;
@@ -92,16 +94,18 @@ module.exports = {
           // Check if bot have permissions
           if (interaction.guild.members.me.permissionsIn(championChannel).has(PermissionsBitField.Flags.ViewChannel && PermissionsBitField.Flags.SendMessages)) {
             await updateChampionsChannel(championChannelData);
+
           } else {
             return await interaction.reply({content: `champion is set.\nbot doesn't have a permission for "${championChannel.name}" channel`, ephemeral: true});
           }
         }
 
+        // Return successful reply
         return await interaction.reply({content: "champion is set.", ephemeral: true,});
 
       // If there was no champion
       } else {
-        const role = interaction.guild.roles.cache.find(role => role.id === championRoleID); // Get the role ID
+        const role = interaction.guild.roles.cache.find(role => role.name === championRoleName); // Get the role ID
         selectedUser.roles.add(role); // Add role to a user
 
         const championChannel = await championsChannelData(interaction, guiildInfo.id);
@@ -116,10 +120,13 @@ module.exports = {
           // Check if bot have permissions
           if (interaction.guild.members.me.permissionsIn(championChannel).has(PermissionsBitField.Flags.ViewChannel && PermissionsBitField.Flags.SendMessages)) {
             await updateChampionsChannel(championChannelData);
+
           } else {
             return await interaction.reply({content: `champion is set.\nbot doesn't have a permission for "${championChannel.name}" channel`, ephemeral: true});
           }
         }
+
+        // Return successful reply
         return await interaction.reply({content: "champion is set.", ephemeral: true,});
       }
 

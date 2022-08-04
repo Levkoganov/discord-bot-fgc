@@ -86,7 +86,7 @@ module.exports = {
     const game = interaction.options.getString("game");
     const champion = interaction.user; // Champion data
     const challenger = interaction.options.getUser("challenger"); // Challenger data
-    const championRoleID = "1003647177479958609";
+    const championRoleName = "KOTH Champion";
     let isCurrentGameChampion = false;
 
     // Server and Channel info
@@ -94,7 +94,7 @@ module.exports = {
     const championChannelInfo = {};
     let championChannelData = championChannelInfo[guiildInfo.id]; // Guild id as key
 
-    const hasRole = interaction.member.roles.cache.some((role) => role.id === championRoleID); // Check if user has role
+    const hasRole = interaction.member.roles.cache.some((role) => role.name === championRoleName); // Check if user has role
     const champoinInfo = await champSchema.find({ userId: champion.id });
 
     // Loop thourh all games

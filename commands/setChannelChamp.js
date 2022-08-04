@@ -15,8 +15,8 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    const ModeratorsRoleID = "1003628964788588585"
-    const hasModRole = interaction.member.roles.cache.some((role) => role.id === ModeratorsRoleID); // Check if user is mod or admin
+    const moderatorsRoleName = "Moderators"
+    const hasModRole = interaction.member.roles.cache.some((role) => role.name === moderatorsRoleName); // Check if user is mod or admin
 
     // Check if user is admin or mod
     if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator) || hasModRole) {
