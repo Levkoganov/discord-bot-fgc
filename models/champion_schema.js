@@ -13,7 +13,6 @@ const defaultNumber = {
 
 // Schema for champion
 const setChampion = new Schema({
-  // guildID: reqString, // Guild ID
   userId: reqString,
   game: reqString, // Game name
   username: reqString, // Username
