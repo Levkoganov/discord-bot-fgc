@@ -109,6 +109,9 @@ module.exports = {
 
       // Check if user has role and if user is champ in the selected game
       if (hasRole && isCurrentGameChampion) {
+        if (champion.id === challenger.id) {
+          return await interaction.reply({ content: "You cannot selecte yourself as a challenger..." , ephemeral: true})
+        }
 
         // general info
         let champion_score = 0; // Champion score
