@@ -37,20 +37,28 @@ module.exports = {
           value: "GG_Strive",
         })
         .addChoices({
-          name: "MultiVersus",
-          value: "MultiVersus",
-        })
-        .addChoices({
-          name: "Brawlhalla",
-          value: "Brawlhalla",
-        })
-        .addChoices({
           name: "DNF Duel",
           value: "DNF_Duel",
         })
         .addChoices({
           name: "Tekken7",
           value: "Tekken7",
+        })
+        .addChoices({
+          name: "Guilty Gear Xrd Rev 2",
+          value: "Guilty_Gear_Xrd_Rev_2",
+        })
+        .addChoices({
+          name: "BlazBlue CF",
+          value: "BlazBlue_CF",
+        })
+        .addChoices({
+          name: "MultiVersus",
+          value: "MultiVersus",
+        })
+        .addChoices({
+          name: "Brawlhalla",
+          value: "Brawlhalla",
         })
         .addChoices({
           name: "Street Fighter V",
@@ -188,7 +196,7 @@ module.exports = {
         const collector = rep.createMessageComponentCollector({
           filter,
           max: 99,
-          time: (1000 * 60) * 30 // 30min
+          time: (1000 * 60) * 90 // 90min
         });
 
         collector.on("collect", async (i) => {
@@ -271,25 +279,29 @@ module.exports = {
               let hasChampionRole = await manageRole(interaction, champion.id, challengerMember, championRoleName)
               let roleOutPutResult = `${hasChampionRole ? "" : 'champion DID NOT get role! make sure "KOTH - Champion" rolename exist.'}`
 
-              if (!hasChampionRole)
+              // Check if champion role exist
+              if (!hasChampionRole) {
                 await i.editReply({content: `${roleOutPutResult}`});
 
-              // Set championChannel
-              const championChannel = await championsChannelData(interaction, guiildInfo.id);
-
-              // Check if channel set.
-              if (!championChannel) {
-                await i.editReply({content: `champion channel IS NOT set!\n${roleOutPutResult}`});
-
               } else {
-                // set data for channel
-                championChannelData = championChannelInfo[guiildInfo.id] = championChannel;
-
-                // Check if bot have permissions
-                if (i.guild.members.me.permissionsIn(championChannel).has(PermissionsBitField.Flags.ViewChannel && PermissionsBitField.Flags.SendMessages)) {
-                  await updateChampionsChannel(championChannelData);
+                // Set championChannel
+                const championChannel = await championsChannelData(interaction, guiildInfo.id);
+  
+                // Check if channel set.
+                if (!championChannel) {
+                  await i.editReply({content: `champion channel IS NOT set!\n${roleOutPutResult}`});
+  
                 } else {
-                  await i.editReply({content: `bot doesn't have a permission for "${championChannel.name}" channel\n${roleOutPutResult}`,});
+                  // set data for channel
+                  championChannelData = championChannelInfo[guiildInfo.id] = championChannel;
+  
+                  // Check if bot have permissions
+                  if (i.guild.members.me.permissionsIn(championChannel).has(PermissionsBitField.Flags.ViewChannel && PermissionsBitField.Flags.SendMessages)) {
+                    await updateChampionsChannel(championChannelData);
+                  } else {
+                    await i.editReply({content: `bot doesn't have a permission for "${championChannel.name}" channel\n${roleOutPutResult}`,});
+                  }
+                  
                 }
               }
 

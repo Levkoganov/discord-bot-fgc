@@ -26,20 +26,28 @@ module.exports = {
           value: "GG_Strive",
         })
         .addChoices({
-          name: "MultiVersus",
-          value: "MultiVersus",
-        })
-        .addChoices({
-          name: "Brawlhalla",
-          value: "Brawlhalla",
-        })
-        .addChoices({
           name: "DNF Duel",
           value: "DNF_Duel",
         })
         .addChoices({
           name: "Tekken7",
           value: "Tekken7",
+        })
+        .addChoices({
+          name: "Guilty Gear Xrd Rev 2",
+          value: "Guilty_Gear_Xrd_Rev_2",
+        })
+        .addChoices({
+          name: "BlazBlue CF",
+          value: "BlazBlue_CF",
+        })
+        .addChoices({
+          name: "MultiVersus",
+          value: "MultiVersus",
+        })
+        .addChoices({
+          name: "Brawlhalla",
+          value: "Brawlhalla",
         })
         .addChoices({
           name: "Street Fighter V",
