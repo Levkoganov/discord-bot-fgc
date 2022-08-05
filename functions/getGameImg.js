@@ -7,9 +7,7 @@ const imgFiles = fs.readdirSync(imgPath).filter((file) => file.endsWith(".png"))
 
 function getGameImg(gameName) {
   for (const img of imgFiles) {
-    if(img.includes(gameName)) {
-      return img // return img string
-    }
+    if(img.includes(gameName)) return img; // return img string
   }
 }
 
