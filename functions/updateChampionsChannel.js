@@ -17,7 +17,8 @@ async function updateChampionsChannel(championChannel) {
 
     // Check number of message in channel
     if (channelData.size === 0) {
-      return championChannel.send({ embeds: [embedData], files: [imgFGC] });
+      championChannel.send({ embeds: [embedData], files: [imgFGC] });
+      return;
     } else {
       let counter = 0;
 
