@@ -12,7 +12,7 @@ async function championsChannelData(interaction, guildId) {
     return interaction.guild.channels.cache.get(channelId);
 
   } catch (error) {
-    console.log(error);
+    console.log("championChannelSchema:", error);
   }
 }
 
