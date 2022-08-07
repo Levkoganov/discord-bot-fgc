@@ -323,12 +323,12 @@ module.exports = {
             let resetChallenger = `**__Challenger__ (${challenger_score})\n` + "`2`" + `${challenger}**`;
             cardEmbed.data.fields[0].value = resetChampion; // Edit embed field
             cardEmbed.data.fields[2].value = resetChallenger; // Player2
-            return await i.update({ embeds: [cardEmbed] });
+            await i.update({ embeds: [cardEmbed] });
           }
 
           // Delete bot interaction
           if (i.customId === "Delete") {
-            interaction.deleteReply();
+            await interaction.deleteReply();
             collector.stop()
             return;
           }
