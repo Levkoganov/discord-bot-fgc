@@ -1,5 +1,5 @@
 const championChannelSchema = require("../models/championChannel_schema");
-const { SlashCommandBuilder, PermissionsBitField } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -8,22 +8,25 @@ module.exports = {
 
     // Channel name
     .addChannelOption((option) =>
-      option
-        .setName("channel")
-        .setDescription("pick channel")
-        .setRequired(true)
+      option.setName("channel").setDescription("pick channel").setRequired(true)
     ),
 
   async execute(interaction) {
     try {
-      const moderatorsRoleName = "Moderators"
-      const hasModRole = interaction.member.roles.cache.some((role) => role.name === moderatorsRoleName); // Check if user is mod or admin
-  
+      const moderatorsRoleName = "Moderators";
+      const hasModRole = interaction.member.roles.cache.some(
+        (role) => role.name === moderatorsRoleName
+      );
+
       // Check if user is admin or mod
-      if (interaction.member.permissions.has(PermissionsBitField.Flags.Administrator) || hasModRole) {
-        // Channel info
+      if (
+        interaction.member.permissions.has(
+          PermissionsBitField.Flags.Administrator
+        ) ||
+        hasModRole
+      ) {
         const channel = interaction.options.getChannel("channel");
-  
+
         // Check for text channel
         if (!channel || channel.type !== 0) {
           return await interaction.reply({
@@ -31,7 +34,7 @@ module.exports = {
             ephemeral: true,
           });
         }
-  
+
         // Add channel to DB
         const setChannel = await championChannelSchema.findOneAndUpdate(
           { _id: interaction.guild.id },
@@ -42,7 +45,7 @@ module.exports = {
           },
           { new: true, upsert: true, useFindAndModify: false }
         );
-  
+
         // Reply if channel is set
         if (setChannel) {
           return interaction.reply({
@@ -50,17 +53,14 @@ module.exports = {
             ephemeral: true,
           });
         }
-  
       } else {
         return interaction.reply({
           content: "You dont have permission for this command...",
           ephemeral: true,
         });
       }
-      
     } catch (err) {
       console.log("setChannelChampion:", err);
     }
-
   },
 };
